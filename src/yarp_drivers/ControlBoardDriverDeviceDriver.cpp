@@ -36,6 +36,7 @@ bool GazeboYarpControlBoardDriver::close()
     //unbinding events
     gazebo::event::Events::DisconnectWorldUpdateBegin (this->updateConnection);
     
+    this->askToStop();
     delete [] control_mode;
     delete [] motion_done;
     return true;

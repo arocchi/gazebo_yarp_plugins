@@ -39,7 +39,7 @@ bool GazeboYarpControlBoardDriver::gazebo_init()
     std::cout<<"# Joints: "<<_robot->GetJoints().size() <<std::endl;
     std::cout<<"# Links: "<<_robot->GetLinks().size() <<std::endl;
 
-    this->robot_refresh_period=this->_robot->GetWorld()->GetPhysicsEngine()->GetUpdatePeriod() *1000.0;
+    this->robot_refresh_period = this->_robot->GetWorld()->GetPhysicsEngine()->GetUpdatePeriod() * 1000.0;
     setJointNames();
 
     _controlboard_number_of_joints = joint_names.size();
@@ -155,7 +155,7 @@ void GazeboYarpControlBoardDriver::onUpdate ( const gazebo::common::UpdateInfo &
                 double temp=ref_pos[j];
                 if ( ( pos[j]-ref_pos[j] ) < -ROBOT_POSITION_TOLERANCE )
                 {
-                    if ( ref_speed[j]!=0 ) temp=pos[j]+ ( ref_speed[j]/1000.0 ) *robot_refresh_period* ( double ) _T_controller;
+                    if ( ref_speed[j]!=0 ) temp = pos[j]+ ( ref_speed[j]/1000.0 ) *robot_refresh_period* ( double ) _T_controller;
                     motion_done[j]=false;
                 }
                 else if ( ( pos[j]-ref_pos[j] ) >ROBOT_POSITION_TOLERANCE )
@@ -181,10 +181,9 @@ void GazeboYarpControlBoardDriver::onUpdate ( const gazebo::common::UpdateInfo &
         }
         else if ( control_mode[j]==VOCAB_CM_TORQUE )
         {
-            if ( _clock%_T_controller==0 )
+            if (_clock % _T_controller == 0)
             {
-                sendTorqueToGazebo ( j,ref_torque[j] );
-                //std::cout<<" torque "<<ref_torque[j]<<" to joint "<<j<<std::endl;
+                sendTorqueToGazebo(j,ref_torque[j]);
             }
         }
     }
@@ -350,21 +349,11 @@ bool GazeboYarpControlBoardDriver::sendTorquesToGazebo(yarp::sig::Vector& refs) 
 
 bool GazeboYarpControlBoardDriver::sendTorqueToGazebo(const int j,const double ref) //NOT TESTED
 {
-    gazebo::msgs::JointCmd j_cmd;
-    prepareJointTorqueMsg(j_cmd,j,ref);
-    jointCmdPub->WaitForConnection();
-    jointCmdPub->Publish(j_cmd);
+    JointPtr joint = this->_robot->GetJoint(joint_names[j]);
+    //set force
+//    gazebo::msgs::JointCmd j_cmd;
+//    prepareJointTorqueMsg(j_cmd,j,ref);
+//    jointCmdPub->WaitForConnection();
+//    jointCmdPub->Publish(j_cmd);
     return true;
-}
-
-void GazeboYarpControlBoardDriver::prepareJointTorqueMsg(gazebo::msgs::JointCmd& j_cmd, const int j, const double ref) //NOT TESTED
-{
-    j_cmd.set_name(this->_robot->GetJoint(joint_names[j])->GetScopedName());
-    j_cmd.mutable_position()->set_p_gain(0.0);
-    j_cmd.mutable_position()->set_i_gain(0.0);
-    j_cmd.mutable_position()->set_d_gain(0.0);
-    j_cmd.mutable_velocity()->set_p_gain(0.0);
-    j_cmd.mutable_velocity()->set_i_gain(0.0);
-    j_cmd.mutable_velocity()->set_d_gain(0.0);
-    j_cmd.set_force(ref);
 }

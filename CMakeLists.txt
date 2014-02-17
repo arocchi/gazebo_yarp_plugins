@@ -66,10 +66,12 @@ set(controlBoard_source     src/gazebo_plugins/ControlBoard.cc
                             src/yarp_drivers/ControlBoardDriverOthers.cpp
                             src/yarp_drivers/ControlBoardDriverPositionControl.cpp
                             src/yarp_drivers/ControlBoardTorqueDriverControl.cpp
-                            src/yarp_drivers/ControlBoardDriverVelocityControl.cpp)
+                            src/yarp_drivers/ControlBoardDriverVelocityControl.cpp
+                            src/yarp_drivers/PIDJointControl.cpp)
 
 set(controlBoard_headers    include/gazebo_yarp_plugins/ControlBoard.hh
-                            include/gazebo_yarp_plugins/ControlBoardDriver.h )
+                            include/gazebo_yarp_plugins/ControlBoardDriver.h 
+                            include/gazebo_yarp_plugins/PIDJointControl.h )
 # for visual studio
 SOURCE_GROUP("Source Files" FILES ${controlBoard_source})
 SOURCE_GROUP("Header Files" FILES ${controlBoard_headers})

@@ -47,7 +47,7 @@ namespace gazebo
           //Getting world pointer
           world_ = gazebo::physics::get_world(world_name);
     
-          time_update_event_ = gazebo::event::Events::ConnectWorldUpdateBegin(boost::bind(&GazeboYarpClock::ClockUpdate,this));
+          time_update_event_ = gazebo::event::Events::ConnectStep(boost::bind(&GazeboYarpClock::ClockUpdate,this));
     }
     
     void GazeboYarpClock::ClockUpdate()

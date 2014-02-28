@@ -10,7 +10,7 @@
 #include <gazebo/gazebo.hh>
 #include <yarp/os/Network.h>
 #include <yarp/os/BufferedPort.h>
-#include <yarp/os/Bottle.h>
+#include <yarp/sig/Vector.h>
 
 namespace gazebo
 {
@@ -33,7 +33,7 @@ namespace gazebo
 
         std::string port_name;
         
-        yarp::os::BufferedPort<yarp::os::Bottle> port;  
+        yarp::os::BufferedPort<yarp::sig::Vector> port;
         
         gazebo::event::ConnectionPtr time_update_event_;
 

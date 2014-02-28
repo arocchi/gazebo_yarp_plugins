@@ -53,10 +53,17 @@ namespace gazebo
     void GazeboYarpClock::ClockUpdate()
     {
          gazebo::common::Time currentTime = world_->GetSimTime();
-         yarp::os::Bottle& b = port.prepare();
-         b.clear();
-         b.addInt(currentTime.sec);
-         b.addInt(currentTime.nsec);
+         yarp::sig::Vector& v = port.prepare();
+         /** optimizing the port to send vectors instead of bottles */
+         if(v.size() == 2) {
+             v[0] = currentTime.sec;
+             v[1] = currentTime.nsec;
+         } else {
+             if(v.size() != 0)
+                v.clear();
+             v.push_back(currentTime.sec);
+             v.push_back(currentTime.nsec);
+         }
          port.write();
     }
 

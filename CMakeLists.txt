@@ -6,6 +6,11 @@ cmake_minimum_required(VERSION 2.6)
 
 PROJECT(yarp_gazebo)
 
+# Pick up our CMake scripts - they are all in the conf subdirectory.
+if(CMAKE_COMPILER_IS_GNUCXX)
+    add_definitions(-std=gnu++0x)
+endif()
+
 #list ( APPEND CMAKE_CXX_FLAGS "-Wall -pedantic -Wmissing-field-initializers -W -Wuninitialized -Wformat=2 -Wctor-dtor-privacy -Wnon-virtual-dtor -Wwrite-strings -Wno-char-subscripts -Wreturn-type -Wcast-qual -Wcast-align -Wsign-promo -Woverloaded-virtual -fno-strict-aliasing  -Werror=address -Werror=parentheses  ${CMAKE_CXX_FLAGS}" )
 
 

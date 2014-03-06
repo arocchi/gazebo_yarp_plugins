@@ -25,14 +25,14 @@ namespace gazebo
         void GazeboYarpClockLoad(std::string world_name);
         
         void ClockUpdate();
-        
+
     private:
         virtual void Init() {};
         
         yarp::os::Network _yarp;
 
         std::string port_name;
-        
+
         yarp::os::BufferedPort<yarp::os::Bottle> port;  
         
         gazebo::event::ConnectionPtr time_update_event_;

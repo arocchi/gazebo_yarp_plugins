@@ -9,6 +9,8 @@
 
 #include <yarp/os/Property.h>
 
+#include <yarp/os/Time.h>
+
 #include <iostream>
 
 #include <cmath>
@@ -32,7 +34,6 @@ namespace gazebo
         std::cout << "GazeboYarpClock loaded." << std::endl;
         
         port_name = "/clock";
-        
         //The proper loading is done when the world is created
         load_gazebo_yarp_clock = gazebo::event::Events::ConnectWorldCreated(boost::bind(&GazeboYarpClock::GazeboYarpClockLoad,this,_1));
     }
@@ -58,6 +59,9 @@ namespace gazebo
          b.addInt(currentTime.sec);
          b.addInt(currentTime.nsec);
          port.write();
+
+         yarp::os::Time::useSystemClock();
+         yarp::os::Time::delay(0.000001);
     }
 
     // Register this plugin with the simulator

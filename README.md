@@ -1,5 +1,7 @@
 gazebo_yarp_plugins
 ===================
+
+[![Join the chat at https://gitter.im/arocchi/gazebo_yarp_plugins](https://badges.gitter.im/Join%20Chat.svg)](https://gitter.im/arocchi/gazebo_yarp_plugins?utm_source=badge&utm_medium=badge&utm_campaign=pr-badge&utm_content=badge)
 [![Build Status](https://travis-ci.org/robotology/gazebo_yarp_plugins.png)](https://travis-ci.org/robotology/gazebo_yarp_plugins)
 
 Plugins for exposing [Yarp](http://yarp.it/) interfaces on [Gazebo simulator](http://gazebosim.org/) models. 
